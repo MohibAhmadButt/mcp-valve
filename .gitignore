@@ -1,11 +1,6 @@
 # Local Database Storage (Contains sensitive transaction/audit logs)
 audit_log.db
 
-# Python Core Execution Files (Your actual monetization logic)
-proxy.py
-app.py
-database.py
-
 # Python Virtual Environments & Dependencies
 .venv/
 venv/

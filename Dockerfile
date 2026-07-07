@@ -11,7 +11,7 @@ WORKDIR /app
 # Copy dependency files and install them
 RUN pip install --no-cache-dir uv
 COPY pyproject.toml uv.lock ./
-RUN python -m uv pip install --system pyyaml streamlit pandas
+RUN python -m uv pip install --system -r pyproject.toml
 
 # Copy your source application code
 COPY . .
