@@ -1,10 +1,11 @@
 [project]
-name = "mcp-guardrail"
+name = "mcp-valve"
 version = "0.1.0"
-description = "Add your description here"
+description = "A high-integrity control valve and security gateway proxy for Model Context Protocol (MCP) tool execution pipelines."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "pyyaml>=6.0.3",
     "streamlit>=1.58.0",
+    "pandas>=2.2.0",
 ]
