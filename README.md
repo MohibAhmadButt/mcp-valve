@@ -1,80 +1,94 @@
-# 🛡️ MCP-Valve Proxy
+# 🎛️ MCP-Valve
 
-A high-integrity control valve and security gateway proxy designed to intercept, audit, and validate Model Context Protocol (MCP) tool execution pipelines in real time.
+A high-integrity control valve, firewall, and security proxy gateway designed for **Model Context Protocol (MCP)** tool execution pipelines.
 
-Designed for security-conscious developers, compliance teams, and enterprises to help prevent autonomous agents (e.g., Cursor, Claude Code, and desktop extensions) from executing unauthorized terminal commands, exposing sensitive data, or performing destructive operations.
+**MCP-Valve** sits between desktop AI agents (such as Claude Code, Cursor, or terminal extensions) and your local environment, intercepting potentially destructive or unauthorized tool calls before they reach your system.
 
----
-
-## 🚀 Key Features
-
-- **Stream Interception Engine**  
-  Evaluates JSON-RPC packets on standard I/O communication channels before execution.
-
-- **Dynamic Policy Firewall**  
-  Restricts risky operations through a customizable local `policies.yaml` configuration.
-
-- **Interactive Approval Gates**  
-  Pauses high-risk actions and requires human approval before execution.
-
-- **Immutable Audit Trails**  
-  Stores runtime telemetry and security events in a local SQLite database.
+![Telemetry Dashboard](assets/dashboard.png)
 
 ---
 
-## 📸 Dashboard Preview
+## ✨ Features
 
-> Add a screenshot of your Streamlit dashboard here after uploading it to the repository.
+- **Real-Time Tool Interception**  
+  Intercepts incoming MCP tool requests and shell command arguments before execution.
 
-```markdown
-![MCP-Valve Dashboard](assets/dashboard.png)
+- **Rule-Based Threat Mitigation**  
+  Applies configurable security policies using blocked and approval-required keyword rules.
+
+- **Human-in-the-Loop (HITL) Approval**  
+  Pauses sensitive operations (such as `sudo` or package installations) for manual approval.
+
+- **Persistent Audit Logging**  
+  Stores execution metadata, timestamps, and policy decisions in a local SQLite database.
+
+- **Live Security Dashboard**  
+  Monitor intercepted requests, policy decisions, and execution history through a Streamlit interface.
+
+- **Privacy-First Design**  
+  Runs entirely on your local machine. No telemetry or execution history is sent to external servers.
+
+---
+
+## 📂 Project Structure
+
+```text
+mcp-valve/
+├── assets/
+│   └── dashboard.png
+├── app.py
+├── database.py
+├── proxy.py
+├── policies.yaml
+├── pyproject.toml
+├── uv.lock
+├── Dockerfile
+├── LICENSE
+└── README.md
 ```
 
 ---
 
-## 📦 Tech Stack
+## 🚀 Getting Started
 
-| Component | Technology |
-|-----------|-------------|
-| Core Runtime | Python 3.12+ |
-| Protocol Layer | JSON-RPC |
-| Policy Engine | YAML |
-| Database | SQLite |
-| Dashboard | Streamlit |
-| Data Processing | Pandas |
+### Prerequisites
 
----
+- Python 3.12+
+- UV (Python package manager)
 
-## 📥 Download & Installation
+### 1. Clone the Repository
 
-### Community Edition
+```bash
+git clone https://github.com/MohibAhmadButt/mcp-valve.git
+cd mcp-valve
+```
 
-Download the latest release from:
+### 2. Create a Virtual Environment
 
-https://github.com/YOUR_GITHUB_USERNAME/mcp-valve/releases
+```bash
+uv venv
+uv sync
+```
 
-> The community edition may include feature limitations such as reduced log visibility or evaluation-only functionality, depending on your distribution model.
+### 3. Launch the Dashboard
 
-### Enterprise Edition
+```bash
+.venv\Scripts\python.exe -m streamlit run app.py
+```
 
-If you plan to offer commercial licensing, replace the placeholder below with your official storefront link:
+Open your browser and visit:
 
-**Enterprise Licensing:**  
-YOUR_LEMON_SQUEEZY_PRODUCT_LINK
-
-Enterprise features may include:
-
-- Unlimited audit log retention
-- Advanced policy rules
-- Multi-user workflows
-- Organizational compliance controls
-- Priority support
+```
+http://localhost:8501
+```
 
 ---
 
-## ⚙️ Configuration (`policies.yaml`)
+## 🛡️ Configuration
 
-Customize protection policies by defining blocked and approval-required keywords:
+Security rules are configured in `policies.yaml`.
+
+Example:
 
 ```yaml
 blocked_keywords:
@@ -84,60 +98,74 @@ blocked_keywords:
 
 pending_keywords:
   - "sudo"
+  - "bash_executor"
   - "install"
   - "apt-get"
 ```
 
----
+### Rule Types
 
-## 🛠️ Local Development
+**Blocked Keywords**
 
-### Clone the Repository
+Commands matching these keywords are rejected immediately.
 
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/mcp-valve.git
-cd mcp-valve
-```
+**Pending Keywords**
 
-### Install Dependencies
-
-```bash
-python -m uv pip install -r requirements.txt
-```
-
-### Launch the Dashboard
-
-```bash
-python -m uv run streamlit run app.py
-```
-
-### Test a Sample Payload
-
-```bash
-echo "{\"jsonrpc\":\"2.0\",\"method\":\"tools/call\",\"params\":{\"name\":\"bash_executor\",\"arguments\":{\"cmd\":\"rm -rf /usr/bin\"}},\"id\":1}" | python proxy.py
-```
+Commands matching these keywords require manual approval before execution.
 
 ---
 
-## 📂 Project Structure
+## 🏗️ Architecture
 
 ```text
-mcp-valve/
-├── app.py
-├── proxy.py
-├── policies.yaml
-├── requirements.txt
-├── .gitignore
-└── README.md
+AI Agent
+     │
+     ▼
+MCP-Valve Proxy
+     │
+     ├── Policy Engine
+     ├── Human Approval Gate
+     ├── Audit Logger
+     └── SQLite Database
+     │
+     ▼
+Local System
 ```
+
+---
+
+## 📦 Tech Stack
+
+| Component | Technology |
+|-----------|------------|
+| Language | Python 3.12+ |
+| Protocol | Model Context Protocol (MCP) |
+| Dashboard | Streamlit |
+| Database | SQLite |
+| Configuration | YAML |
+| Package Manager | UV |
+| Containerization | Docker |
 
 ---
 
 ## 📄 License
 
-This project is distributed under the **MCP-Valve Commercial & Non-Commercial License**.
+Distributed under the MIT License.
 
-- Free for personal, educational, and non-commercial use.
-- Commercial deployment or enterprise integration may require a valid commercial license, depending on your chosen business model.
+See the **LICENSE** file for more information.
 
-See the `LICENSE` file for complete terms.
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+If you have ideas for improving security policies, dashboard functionality, or MCP integrations, feel free to open an issue or submit a pull request.
+
+---
+
+## 👨‍💻 Author
+
+**Mohib Ahmad Butt**
+
+Artificial Intelligence Student • AI/ML Engineer • Open Source Developer
