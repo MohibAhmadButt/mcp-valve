@@ -1,0 +1,28 @@
+# Local Database Storage (Contains sensitive transaction/audit logs)
+audit_log.db
+
+# Python Core Execution Files (Your actual monetization logic)
+proxy.py
+app.py
+database.py
+
+# Python Virtual Environments & Dependencies
+.venv/
+venv/
+ENV/
+env/
+
+# PyInstaller Compilation Directories (Temporary build files)
+build/
+dist/
+*.spec
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Operating System Temporary Files
+.DS_Store
+Thumbs.db

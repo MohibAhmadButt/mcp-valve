@@ -1,0 +1,10 @@
+blocked_keywords:
+  - "rm -rf"
+  - "drop table"
+  - "delete from"
+
+pending_keywords:
+  - "sudo"
+  - "bash_executor"
+  - "install"
+  - "apt-get"
